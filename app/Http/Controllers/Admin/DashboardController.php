@@ -16,7 +16,9 @@ class DashboardController extends Controller
         $classes = SchoolClass::count();
 
         $recentStudents = Student::latest()->take(5)->get();
-
+        $students = Student::with('payments')->get();
+        $paid = $student->payments->sum('amount_paid');
+$balance = $student->fees_total - $paid;
         return view('admin.dashboard', compact(
             'students',
             'teachers',

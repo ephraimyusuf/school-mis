@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('school_classes', function (Blueprint $table) {
+        Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // e.g Form 1A
-            $table->string('stream')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('school_classes');
+        Schema::dropIfExists('invoices');
     }
 };

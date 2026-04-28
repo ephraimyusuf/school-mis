@@ -14,9 +14,9 @@ use Illuminate\Notifications\Notifiable;
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
+    /** @use H use HasRoles;asFactory<UserFactory> */
     use HasFactory, Notifiable;
-
+    use HasRoles;
     /**
      * Get the attributes that should be cast.
      *

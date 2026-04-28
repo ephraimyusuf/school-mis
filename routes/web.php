@@ -8,6 +8,9 @@ use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Admin\ClassController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\FinanceController;
+use App\Http\Controllers\Admin\FeeController;
+use App\Http\Controllers\Admin\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,28 +47,47 @@ Route::middleware(['auth'])
     ->name('admin.')
     ->group(function () {
 
-        // Dashboard
+        /*
+        |-------------------------
+        | Dashboard
+        |-------------------------
+        */
         Route::get('/dashboard', [DashboardController::class, 'index'])
             ->name('dashboard');
 
-        // CRUD
+        /*
+        |-------------------------
+        | CRUD MODULES
+        |-------------------------
+        */
         Route::resource('students', StudentController::class);
         Route::resource('teachers', TeacherController::class);
         Route::resource('classes', ClassController::class);
         Route::resource('subjects', SubjectController::class);
+        Route::resource('fees', FeeController::class);
+        Route::resource('payments', PaymentController::class);
 
-        Route::resource('fees', \App\Http\Controllers\Admin\FeeController::class);
-        Route::resource('payments', \App\Http\Controllers\Admin\PaymentController::class);
+        /*
+        |-------------------------
+        | FINANCE MODULE
+        |-------------------------
+        */
+        Route::prefix('finance')->name('finance.')->group(function () {
 
-        // Finance page (FIXED)
-        Route::get('/finance', [\App\Http\Controllers\Admin\FinanceController::class, 'index'])
-            ->name('finance.index');
+            // Finance dashboard page
+            Route::get('/', [FinanceController::class, 'index'])
+                ->name('index');
+
+            // Invoice view
+            Route::get('/invoice/{student}', [FinanceController::class, 'invoice'])
+                ->name('invoice');
+
+            // PDF invoice
+            Route::get('/invoice/pdf/{id}', [FinanceController::class, 'invoicePdf'])
+                ->name('invoice.pdf');
+
+        });
 
     });
-/*
-|--------------------------------------------------------------------------
-| AUTH ROUTES
-|--------------------------------------------------------------------------
-*/
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

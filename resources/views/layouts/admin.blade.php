@@ -33,10 +33,10 @@
                     📊 <span>Dashboard</span>
                 </a>
 
-                <a href="#"
-                   class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-[#2d3f8a]">
-                    🎓 <span>Students</span>
-                </a>
+                <a href="{{ route('admin.students.index') }}"
+   class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-[#2d3f8a]">
+    💰 <span>Students</span>
+</a>
 
                 <a href="#"
                    class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-[#2d3f8a]">
